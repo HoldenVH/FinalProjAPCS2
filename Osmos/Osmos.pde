@@ -1,4 +1,13 @@
-ArrayList<Mote> Motes = new ArrayList<Mote>();
-static void setup(){}
+class Osmos{
+  ArrayList<Mote> Motes = new ArrayList<Mote>();
+  
+  void setup(){
+    Motes.add(new Player());
+  }
 
-static void draw(){}
+  void draw(){
+    for(Mote m: Motes){
+      ellipse(m.loc.x, m.loc.y, m.radius, m.radius);
+    }
+  }
+}
