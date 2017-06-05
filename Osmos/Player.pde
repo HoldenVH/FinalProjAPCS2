@@ -1,11 +1,12 @@
 class Player extends Mote{
   Player(){
-    radius = 5;
+    super(width/2,height/2,13,20,10);
+    radius = 30;
   }
   
-  void move(){
+  /*void move1(){
     while(mousePressed){
-      vel.set(1,1,1);
+      vel.set(10,10,1);
     }
-  }  
+  } */ 
 }

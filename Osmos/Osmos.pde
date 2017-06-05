@@ -1,13 +1,16 @@
-class Osmos{
-  ArrayList<Mote> Motes = new ArrayList<Mote>();
-  
-  void setup(){
-    Motes.add(new Player());
-  }
+ArrayList<Mote> Motes = new ArrayList<Mote>();
+int i;
+void setup(){
+  size(1000,1000);
+  Motes.add(new Player());
+}
 
-  void draw(){
-    for(Mote m: Motes){
-      ellipse(m.loc.x, m.loc.y, m.radius, m.radius);
-    }
+void draw(){
+  clear();
+  i++;
+  for(Mote m: Motes){
+    System.out.println(m.vel.y);
+    m.move();
+    ellipse(m.loc.x, m.loc.y, m.radius, m.radius);
   }
 }
