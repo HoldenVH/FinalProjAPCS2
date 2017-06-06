@@ -10,6 +10,7 @@ void setup() {
 
 void draw() {
   clear();
+  float totalArea=0;
   for (Mote m : Motes) {
     ellipse(m.loc.x, m.loc.y, 2*m.radius, 2*m.radius);
     m.move();
@@ -17,6 +18,7 @@ void draw() {
       m.transfer(m2);
     }
   }
+ 
   for(int i=Motes.size()-1;i>=0;i--){
     if(Motes.get(i).kill()){
       Motes.remove(i);

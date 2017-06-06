@@ -53,7 +53,7 @@ class Mote {
   }
 
   public void transfer(Mote m) {
-    double change=.1;
+    double change=.4;
     if (m.radius<this.radius
       &&
       (between(this.loc.x-this.radius, m.loc.x-m.radius, this.loc.x+this.radius)
