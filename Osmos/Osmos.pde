@@ -12,10 +12,14 @@ void draw() {
   clear();
   float totalArea=0;
   for (Mote m : Motes) {
-    ellipse(m.loc.x, m.loc.y, 2*m.radius, 2*m.radius);
+    if(m.radius > 1){
+      //ellipse(m.loc.x, m.loc.y, 2*m.radius, 2*m.radius);
+    image(m.img, m.loc.x-m.radius, m.loc.y-m.radius);
+    m.img.resize((int)m.radius*2, (int)m.radius*2);
     m.move();
     for(Mote m2 : Motes){
       m.transfer(m2);
+    }
     }
   }
  

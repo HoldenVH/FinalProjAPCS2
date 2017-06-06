@@ -1,7 +1,8 @@
 class Player extends Mote{
   Player(){
-    super(width/2-100,height/2,0,0,10);
-    radius = 100;
+    super(width/2-100,height/2,0,0,100);
+    img = loadImage("player.png");
+    img.resize((int)radius*2, (int)radius*2);
   }
   
   /*void move1(){

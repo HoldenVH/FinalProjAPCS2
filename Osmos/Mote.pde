@@ -1,11 +1,14 @@
 class Mote {
   public PVector loc, vel;//loc:x,y,radius(?) | vel:xvel,yvel
   public float radius;
+  public PImage img;
 
   public Mote(float xcor, float ycor, float xvel, float yvel, float rad) {
     loc=new PVector (xcor, ycor);
     vel=new PVector (xvel, yvel);
     radius= rad;
+    img = loadImage("enemy.png");
+    img.resize((int)radius*2, (int)radius*2);
   }
 
   public void move() {
