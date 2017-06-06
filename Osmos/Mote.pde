@@ -53,7 +53,7 @@ class Mote {
   }
 
   public void transfer(Mote m) {
-    double change=10;
+    double change=.1;
     if (m.radius<this.radius
       &&
       (between(this.loc.x-this.radius, m.loc.x-m.radius, this.loc.x+this.radius)
@@ -63,8 +63,10 @@ class Mote {
       ||between(this.loc.y-this.radius, m.loc.y+m.radius, this.loc.y+this.radius))
       && this.loc.dist(m.loc)<this.radius+m.radius) {
 
-      m.radius=(float)Math.sqrt(m.radius*m.radius-change);     
-      radius=(float)Math.sqrt(radius*radius+change);
+        //pi cancels out
+        this.radius=(float)Math.sqrt(this.radius*this.radius + m.radius*m.radius-(m.radius-change)*(m.radius-change));
+        m.radius-=change;     
+      
     }
   }
 

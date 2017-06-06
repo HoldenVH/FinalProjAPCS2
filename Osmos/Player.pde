@@ -33,5 +33,19 @@ class Player extends Mote{
         vel.set(vel.x, -1*vel.y);
       }
     }
+    
+    //move away from edges
+    if (loc.x-radius<0) {
+      loc.x=radius;
+    }
+    if (loc.y-radius<0) {
+      loc.y=radius;
+    }
+    if (loc.x+radius>width) {
+      loc.x=width-radius;
+    }
+    if(loc.y+radius>height){
+      loc.y=height-radius;
+    }
   }
 }

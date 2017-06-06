@@ -4,7 +4,7 @@ void setup() {
   size(1200, 1200);
   Motes.add(new Player());
   for(int i=0;i<30;i++){
-    Motes.add(new Mote((float)Math.random()*width,(float)Math.random()*height,0,0,50));
+    Motes.add(new Mote((float)Math.random()*width,(float)Math.random()*height,0,0,(float)Math.random()*20+40));
   }
 }
 
