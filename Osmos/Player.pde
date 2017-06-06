@@ -12,7 +12,7 @@ class Player extends Mote{
   } */ 
   
   public void refresh(){
-    img = loadImage("player.png");
+    img = imgP.copy();
     img.resize((int)radius*2, (int)radius*2);
   }
   

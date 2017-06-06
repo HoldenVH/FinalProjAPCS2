@@ -2,6 +2,7 @@ class Mote {
   public PVector loc, vel;//loc:x,y,radius(?) | vel:xvel,yvel
   public float radius;
   public PImage img;
+  public boolean radChange;
 
   public Mote(float xcor, float ycor, float xvel, float yvel, float rad) {
     loc=new PVector (xcor, ycor);
@@ -9,10 +10,12 @@ class Mote {
     radius= rad;
     img = loadImage("enemy.png");
     img.resize((int)radius*2, (int)radius*2);
+    radChange=false;
   }
 
   public void refresh(){
-    img = loadImage("enemy.png");
+    
+    img = imgM.copy();
     img.resize((int)radius*2, (int)radius*2);
   }
 
@@ -60,7 +63,7 @@ class Mote {
     return a<=b && b<=c;
   }
 
-  public void transfer(Mote m) {
+  public boolean transfer(Mote m) {
     double change=.4;
     if (m.radius<this.radius
       &&
@@ -74,8 +77,11 @@ class Mote {
         //pi cancels out
         this.radius=(float)Math.sqrt(this.radius*this.radius + m.radius*m.radius-(m.radius-change)*(m.radius-change));
         m.radius-=change;     
-      
-    }
+        this.radChange=true;
+        m.radChange=true;
+        return true;
+    }    
+    return false;
   }
 
   public boolean kill() {
