@@ -9,8 +9,19 @@ class Mote{
   }
   
   public void move(){
-    //if(vel.mag()!=0){
+    if(mousePressed&&radius>10){
+      PVector change=new PVector(mouseX-loc.x,mouseY-loc.y);
+      change.normalize();
+      change.mult(-.1);
+      vel.add(change);
+      radius-=.1;
+    }
+    if(vel.mag()!=0){
         loc.add(vel);
+        if(vel.mag()>.05){
+          vel.mult(.99);//coefficient of "friction"
+        }
+        else{vel.mult(0);}
           //bound checking and bouncing, we need to decide window size
       if(loc.x-radius<0||loc.x+radius>width){
         vel.set(-1*vel.x,vel.y);
@@ -18,6 +29,6 @@ class Mote{
       if(loc.y-radius<0||loc.y+radius>width){
         vel.set(vel.x,-1*vel.y);
       }
-    //}
+    }
   }   
 }

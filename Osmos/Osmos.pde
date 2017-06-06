@@ -1,7 +1,7 @@
 ArrayList<Mote> Motes = new ArrayList<Mote>();
 int i;
 void setup(){
-  size(1000,1000);
+  size(1200,1200);
   Motes.add(new Player());
 }
 
@@ -9,8 +9,7 @@ void draw(){
   clear();
   i++;
   for(Mote m: Motes){
-    System.out.println(m.vel.y);
-    m.move();
-    ellipse(m.loc.x, m.loc.y, m.radius, m.radius);
+     ellipse(m.loc.x, m.loc.y, 2*m.radius, 2*m.radius);
+     m.move();
   }
 }

@@ -1,7 +1,7 @@
 class Player extends Mote{
   Player(){
-    super(width/2,height/2,13,20,10);
-    radius = 30;
+    super(width/2,height/2,3,8,10);
+    radius = 50;
   }
   
   /*void move1(){
