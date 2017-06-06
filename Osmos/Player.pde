@@ -11,6 +11,11 @@ class Player extends Mote{
     }
   } */ 
   
+  public void refresh(){
+    img = loadImage("player.png");
+    img.resize((int)radius*2, (int)radius*2);
+  }
+  
   public void move() {
     if (mousePressed&&radius>10) {
       PVector change=new PVector(mouseX-loc.x, mouseY-loc.y);

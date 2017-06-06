@@ -11,6 +11,11 @@ class Mote {
     img.resize((int)radius*2, (int)radius*2);
   }
 
+  public void refresh(){
+    img = loadImage("enemy.png");
+    img.resize((int)radius*2, (int)radius*2);
+  }
+
   public void move() {
     /*if (mousePressed&&radius>10) {
      PVector change=new PVector(mouseX-loc.x, mouseY-loc.y);
