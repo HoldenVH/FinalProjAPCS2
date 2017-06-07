@@ -63,25 +63,26 @@ class Mote {
     return a<=b && b<=c;
   }
 
-  public boolean transfer(Mote m) {
-    double change=.4;
-    if (m.radius<this.radius
+  public boolean transCheck(Mote m){
+    return m.radius<this.radius
       &&
       (between(this.loc.x-this.radius, m.loc.x-m.radius, this.loc.x+this.radius)
       ||between(this.loc.x-this.radius, m.loc.x+m.radius, this.loc.x+this.radius))
       &&
       (between(this.loc.y-this.radius, m.loc.y-m.radius, this.loc.y+this.radius)
       ||between(this.loc.y-this.radius, m.loc.y+m.radius, this.loc.y+this.radius))
-      && this.loc.dist(m.loc)<this.radius+m.radius) {
+      && this.loc.dist(m.loc)<this.radius+m.radius;
+  }
 
+  public void transfer(Mote m) {
+    double change=.4;
+    if (transCheck(m)) {
         //pi cancels out
         this.radius=(float)Math.sqrt(this.radius*this.radius + m.radius*m.radius-(m.radius-change)*(m.radius-change));
         m.radius-=change;     
         this.radChange=true;
         m.radChange=true;
-        return true;
-    }    
-    return false;
+        }    
   }
 
   public boolean kill() {

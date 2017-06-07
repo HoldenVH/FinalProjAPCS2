@@ -7,10 +7,10 @@ void setup() {
   Motes.add(new Player());
   for (int i=1; i<50; i++) {
     //add random motes
-    Motes.add(new Mote((float)Math.random()*width, (float)Math.random()*height, 0, 0, (float)Math.random()*60+40));
+    Motes.add(new Mote((float)Math.random()*width, (float)Math.random()*height, 0, 0, (float)Math.random()*40+40));
     //delete motes touching player
     for(int n=0;n<i;n++){
-      if(Motes.get(n).transfer(Motes.get(i))||Motes.get(i).transfer(Motes.get(n))){
+      if(Motes.get(n).transCheck(Motes.get(i))||Motes.get(i).transCheck(Motes.get(n))){
         Motes.remove(i);
         i--;
       }
