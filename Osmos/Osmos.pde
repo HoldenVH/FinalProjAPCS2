@@ -5,9 +5,9 @@ PImage imgP,imgM;
 void setup() {
   size(1200, 1200);
   Motes.add(new Player());
-  for (int i=1; i<50; i++) {
+  for (int i=1; i<30; i++) {
     //add random motes
-    Motes.add(new Mote((float)Math.random()*width, (float)Math.random()*height, 0, 0, (float)Math.random()*40+40));
+    Motes.add(new Mote((float)Math.random()*width, (float)Math.random()*height, 0, 0, (float)Math.random()*25+40));
     //delete motes touching player
     for(int n=0;n<i;n++){
       if(Motes.get(n).transCheck(Motes.get(i))||Motes.get(i).transCheck(Motes.get(n))){

@@ -22,7 +22,7 @@ class Player extends Mote{
       change.normalize();
       change.mult(-.1);
       vel.add(change);
-      radius-=.1;
+      radius-=.5;
     }
     if (vel.mag()!=0) {
       loc.add(vel);

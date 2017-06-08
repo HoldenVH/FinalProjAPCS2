@@ -13,8 +13,8 @@ class Mote {
     radChange=false;
   }
 
-  public void refresh(){
-    
+  public void refresh() {
+
     img = imgM.copy();
     img.resize((int)radius*2, (int)radius*2);
   }
@@ -53,7 +53,7 @@ class Mote {
     if (loc.x+radius>width) {
       loc.x=width-radius;
     }
-    if(loc.y+radius>height){
+    if (loc.y+radius>height) {
       loc.y=height-radius;
     }
   }
@@ -63,7 +63,7 @@ class Mote {
     return a<=b && b<=c;
   }
 
-  public boolean transCheck(Mote m){
+  public boolean transCheck(Mote m) {
     return m.radius<this.radius
       &&
       (between(this.loc.x-this.radius, m.loc.x-m.radius, this.loc.x+this.radius)
@@ -75,14 +75,17 @@ class Mote {
   }
 
   public void transfer(Mote m) {
-    double change=.4;
-    if (transCheck(m)) {
-        //pi cancels out
-        this.radius=(float)Math.sqrt(this.radius*this.radius + m.radius*m.radius-(m.radius-change)*(m.radius-change));
-        m.radius-=change;     
-        this.radChange=true;
-        m.radChange=true;
-        }    
+    double change=.2;
+    while(transCheck(m)) {
+      //pi cancels out
+      this.radius=(float)Math.sqrt(this.radius*this.radius + m.radius*m.radius-(m.radius-change)*(m.radius-change));
+      m.radius-=change;     
+      this.radChange=true;
+      m.radChange=true;
+      if (m.vel.mag()==0) {
+        //m.loc.add(this.vel);
+      }
+    }
   }
 
   public boolean kill() {
