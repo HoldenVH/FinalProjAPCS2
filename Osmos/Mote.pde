@@ -9,14 +9,7 @@ class Mote {
     vel=new PVector (xvel, yvel);
     radius= rad;
     img = loadImage("enemy.png");
-    img.resize((int)radius*2, (int)radius*2);
     radChange=false;
-  }
-
-  public void refresh() {
-
-    img = imgM.copy();
-    img.resize((int)radius*2, (int)radius*2);
   }
 
   public void move() {
@@ -78,7 +71,7 @@ class Mote {
     double change=.2;
     while(transCheck(m)) {
       //pi cancels out
-      this.radius=(float)Math.sqrt(this.radius*this.radius + m.radius*m.radius-(m.radius-change)*(m.radius-change));
+      this.radius=(float)Math.sqrt(this.radius*this.radius + 2*m.radius*change - change*change);
       m.radius-=change;     
       this.radChange=true;
       m.radChange=true;

@@ -2,7 +2,6 @@ class Player extends Mote{
   Player(){
     super(width/2-100,height/2,0,0,100);
     img = loadImage("player.png");
-    img.resize((int)radius*2, (int)radius*2);
   }
   
   /*void move1(){
@@ -10,11 +9,6 @@ class Player extends Mote{
       vel.set(10,10,1);
     }
   } */ 
-  
-  public void refresh(){
-    img = imgP.copy();
-    img.resize((int)radius*2, (int)radius*2);
-  }
   
   public void move() {
     if (mousePressed&&radius>10) {

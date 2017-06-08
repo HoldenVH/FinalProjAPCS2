@@ -1,7 +1,5 @@
 ArrayList<Mote> Motes = new ArrayList<Mote>();
 
-PImage imgP,imgM;
-
 void setup() {
   size(1200, 1200);
   Motes.add(new Player());
@@ -16,17 +14,13 @@ void setup() {
       }
     }
   }
-  imgP = loadImage("player.png");
-  imgM = loadImage("enemy.png");
 }
 
 void draw() {
   clear();
   for (Mote m : Motes) {
     if (m.radius > 1) {
-      //ellipse(m.loc.x, m.loc.y, 2*m.radius, 2*m.radius);
-      m.img.resize((int)m.radius*2, (int)m.radius*2);
-      image(m.img, m.loc.x-m.radius, m.loc.y-m.radius);
+      image(m.img, m.loc.x-m.radius, m.loc.y-m.radius, m.radius*2, m.radius*2);
       
       m.move();
       for (Mote m2 : Motes) {
@@ -38,10 +32,6 @@ void draw() {
   for (int i=Motes.size()-1; i>=0; i--) {
     if (Motes.get(i).kill()) {
       Motes.remove(i);
-    }
-    if (frameCount%(Motes.size()*1)==i && Motes.get(i).radChange) {
-      Motes.get(i).refresh();
-      System.out.println(i);
     }
   }
 }
