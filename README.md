@@ -35,8 +35,10 @@ Development Log:
 -Tweaked absorption feature
 
 6/8:
+-Optimized absorption algebra, improved performance by fixing image scaling quality error bug caused by resize()
 
 6/9:
+-No updates
 
 6/10:
 
