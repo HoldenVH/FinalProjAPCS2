@@ -8,7 +8,8 @@ class Mote {
     loc=new PVector (xcor, ycor);
     vel=new PVector (xvel, yvel);
     radius= rad;
-    img = loadImage("enemy.png");
+    if (rad >= 100) img = loadImage("bigger_enemy.png");
+    else img = loadImage("smaller_enemy.png");
     radChange=false;
   }
 
@@ -69,10 +70,10 @@ class Mote {
 
   public void transfer(Mote m) {
     double change=.2;
-    while(transCheck(m)) {
+    while (transCheck(m)) {
       //pi cancels out
       this.radius=(float)Math.sqrt(this.radius*this.radius + 2*m.radius*change - change*change);
-      m.radius-=change;     
+      m.radius-=change;
       this.radChange=true;
       m.radChange=true;
       if (m.vel.mag()==0) {
