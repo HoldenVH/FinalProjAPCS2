@@ -2,19 +2,24 @@ Md and Holden's Final Project for Mr. Konstantinovich's APCS Class Semester 2
 
 Project Idea: A rendition of the puzzle game Osmos in Processing
 
+Instructions:
+
+-Open one of the .pde files in Processing 3 and run
+
 Features:
 
 - Controllable cell that bounces off walls and accelerates/decelerates
 
 - Player and enemies which can absorb each other
 
-- Sprites from the actual game
+- Sprites from the actual game which update based on gameplay
 
 Bugs:
 
-- Cell sprites look incorrect when the cell has a large size, and doesn't fix itself when the cell shrinks.
+- None right now (we think)
 
 Development Log:
+
 5/31:
 
 -Started coding, made class files
@@ -51,7 +56,7 @@ Development Log:
 
 6/8:
 
--Optimized absorption algebra, improved performance by fixing image scaling quality error bug caused by resize()
+-Optimized absorption algebra, improved performance by fixing image scaling quality error bug caused by resize()
 
 6/9:
 
@@ -59,6 +64,6 @@ Development Log:
 
 6/10:
 
-- Added sprites for bigger/smaller enemies and made them update based on size, optimized most of the code especially the drawing
+- Added sprites for bigger/smaller enemies and made them update based on size, optimized most of the code especially the drawing, updated prototype and readme features
 
 6/11:
