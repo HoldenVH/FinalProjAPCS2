@@ -1,11 +1,11 @@
 class Player extends Mote {
   Player(PImage img) {
-    super(width/2-100, height/2, 0, 0, 100, img);
+    super(mapWidth/2-100, mapHeight/2, 0, 0, 100, img);
   }
 
   public void move() {
     if (mousePressed && radius > 10) {
-      PVector change = new PVector(mouseX-loc.x, mouseY-loc.y);
+      PVector change = new PVector(mouseX-width/2, mouseY-height/2);
       change.normalize();
       change.mult(-.1);
       vel.add(change);
@@ -19,10 +19,10 @@ class Player extends Mote {
         vel.mult(0);
       }
       //bound checking and bouncing, we need to decide window size
-      if (loc.x-radius < 0|| loc.x+radius > width) {
+      if (loc.x-radius < 0|| loc.x+radius > mapWidth) {
         vel.set(-1*vel.x, vel.y);
       }
-      if (loc.y-radius < 0 || loc.y+radius > width) {
+      if (loc.y-radius < 0 || loc.y+radius > mapWidth) {
         vel.set(vel.x, -1*vel.y);
       }
     }
@@ -34,11 +34,11 @@ class Player extends Mote {
     if (loc.y-radius < 0) {
       loc.y = radius;
     }
-    if (loc.x+radius > width) {
-      loc.x = width-radius;
+    if (loc.x+radius > mapWidth) {
+      loc.x = mapWidth-radius;
     }
-    if (loc.y+radius > height) {
-      loc.y = height-radius;
+    if (loc.y+radius > mapHeight) {
+      loc.y = mapHeight-radius;
     }
   }
 }
