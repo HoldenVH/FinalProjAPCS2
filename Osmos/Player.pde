@@ -4,7 +4,7 @@ class Player extends Mote {
   }
 
   public void move() {
-    if (mousePressed && radius > 10) {
+    if (mousePressed) {
       PVector change = new PVector(mouseX-width/2, mouseY-height/2);
       change.normalize();
       change.mult(-.3);
