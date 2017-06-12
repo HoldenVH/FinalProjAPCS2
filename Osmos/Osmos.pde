@@ -21,7 +21,7 @@ void setup() {
 }
 
 void draw() {
-  System.out.println(Motes.size());
+
   clear();
   if (!started) {//menu screen
     textSize(50);
