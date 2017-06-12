@@ -16,7 +16,7 @@ class Mote {
     if (vel.mag()!=0) {
       loc.add(vel);
       if (vel.mag()>.05) {
-        vel.mult(.99); //coefficient of "friction"
+        vel.mult(.999);//coefficient of "friction"
       } else {
         vel.mult(0);
       }

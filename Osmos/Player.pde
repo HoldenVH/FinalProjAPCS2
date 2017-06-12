@@ -10,13 +10,14 @@ class Player extends Mote {
       change.normalize();
       change.mult(-.1);
       vel.add(change);
-      radius -= 0.5;
+      //radius -= 0.5;
+      radius -= vel.mag()*.1;
       moved = true;
     }
     if (vel.mag()!=0) {
       loc.add(vel);
       if (vel.mag()>.05) {
-        vel.mult(.99);//coefficient of "friction"
+        vel.mult(.999);//coefficient of "friction"
       } else {
         vel.mult(0);
       }

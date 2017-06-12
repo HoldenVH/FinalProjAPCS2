@@ -14,9 +14,9 @@ void setup() {
   player = new Player(loadImage("player.png"));
   Motes.add(player);
 
-  for (int i = 1; i < 20; i++) {
+  for (int i = 1; i < 40; i++) {
     //add random motes
-    Motes.add(new Mote((float)Math.random()*mapWidth, (float)Math.random()*mapHeight, 0, 0, (float)Math.random()*25+40, biggerEnemy));
+    Motes.add(new Mote((float)Math.random()*mapWidth, (float)Math.random()*mapHeight, (float)Math.random()*5-5, (float)Math.random()*5-5, (float)Math.random()*25+40, biggerEnemy));
     //delete motes touching other motes
     for (int n = 0; n < i; n++) {
       if (Motes.get(n).shouldAbsorb(Motes.get(i)) || Motes.get(i).shouldAbsorb(Motes.get(n))) {
@@ -43,9 +43,9 @@ void draw() {
           PVector dir = new PVector(mouseX-width/2, mouseY-height/2).normalize().mult(player.radius*1.5);
           PVector newVel = new PVector(mouseX-width/2, mouseY-height/2).normalize().mult(player.radius*player.radius/(newRadius*newRadius));
           Motes.add(new Mote(player.loc.x+dir.x, player.loc.y+dir.y, newVel.x, newVel.y, newRadius, smallerEnemy));
-          radTemp = 0.5;
+          radTemp = 0.1;
         } else {
-          radTemp += 0.5;
+          radTemp += player.vel.mag()*.1;
         }
       }
       for (Mote m2 : Motes) {
