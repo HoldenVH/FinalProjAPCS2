@@ -10,7 +10,7 @@ int resetCounter, mapBoxClicked, mapSize, enemiesBoxClicked, numEnemies;
 
 void setup() {
   frameRate(20);
-  size(1500, 1500);
+  size(1000, 1000);
   biggerEnemy = loadImage("biggerEnemy.png");
   smallerEnemy = loadImage("smallerEnemy.png"); 
   gameOver= loadImage("gameOver.png");
@@ -96,6 +96,8 @@ void draw() {
 
     if (!(Motes.get(0) instanceof Player)) {
       image(gameOver, 0, 0, width, height);
+      String s="SCORE: "+player.score;
+      text(s,width/2,height/2+300);
       resetCounter++;
       if (resetCounter>30) {
         started=false;

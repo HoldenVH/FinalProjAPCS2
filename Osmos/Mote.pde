@@ -1,6 +1,6 @@
 class Mote {
   public PVector loc, vel;
-  public float radius;
+  public float radius, score;
   public PImage img;
   public boolean radChange;
 
@@ -18,7 +18,7 @@ class Mote {
     if (vel.mag()!=0) {
       loc.add(vel);
       if (vel.mag()>.05) {
-        vel.mult(.999);//coefficient of "friction"
+        vel.mult(.99);//coefficient of "friction"
       } else {
         vel.mult(0);
       }
@@ -63,6 +63,7 @@ class Mote {
   public void absorb(Mote m) {
     float change = 0.2;
     //calculates the new radius for every quantized absorption
+    score+=(float)Math.sqrt(radius*radius + 2*m.radius*change - change*change)-radius;
     radius = (float)Math.sqrt(radius*radius + 2*m.radius*change - change*change);
     m.radius -= change;
     radChange = true;

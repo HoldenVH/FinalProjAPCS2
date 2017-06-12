@@ -9,7 +9,7 @@ class Player extends Mote {
     if (mousePressed) {
       PVector change = new PVector(mouseX-width/2, mouseY-height/2);
       change.normalize();
-      change.mult(-.3);
+      change.mult(-.2);
       vel.add(change);
       //radius -= 0.5;
       radius -= vel.mag()*.1;
