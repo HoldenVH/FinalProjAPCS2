@@ -1,8 +1,8 @@
 ArrayList<Mote> Motes = new ArrayList<Mote>();
 Player player;
-PImage biggerEnemy;
-PImage smallerEnemy;
+PImage biggerEnemy, smallerEnemy, gameOver;
 int mapWidth, mapHeight;
+
 
 void setup() {
   size(1200, 1200);
@@ -10,6 +10,7 @@ void setup() {
   mapHeight=3000;
   biggerEnemy = loadImage("biggerEnemy.png");
   smallerEnemy = loadImage("smallerEnemy.png");
+  gameOver= loadImage("gameOver.png");
   player = new Player(loadImage("player.png"));
   Motes.add(player);
 
@@ -28,41 +29,44 @@ void setup() {
 
 void draw() {
   clear();
-  background(100);
-  Mote p= Motes.get(0);
-  fill(0,255);
-  rect(width/2-p.loc.x,height/2-p.loc.y,mapWidth,mapHeight);
-  /*
-  for (Mote m: Motes) {
-   if (m.radius > 1) {
-   image(m.img, m.loc.x-m.radius, m.loc.y-m.radius, m.radius*2, m.radius*2);
-   m.move();
-   for (Mote m2 : Motes) {
-   m.transfer(m2);
-   }
-   }
-   }
-   */
+  if (!(Motes.get(0) instanceof Player)) {
+    image(gameOver,0, 0, width, height);
+  } else {
+    background(100);
+    Mote p= Motes.get(0);
+    fill(0, 255);
+    rect(width/2-p.loc.x, height/2-p.loc.y, mapWidth, mapHeight);
+    /*
+    for (Mote m: Motes) {
+     if (m.radius > 1) {
+     image(m.img, m.loc.x-m.radius, m.loc.y-m.radius, m.radius*2, m.radius*2);
+     m.move();
+     for (Mote m2 : Motes) {
+     m.transfer(m2);
+     }
+     }
+     }
+     */
 
-  for (int i = 0; i < Motes.size(); i++) {
-    Mote m = Motes.get(i);
-    if (m.radius > 1) {
-      image(m.img, m.loc.x-m.radius-p.loc.x+height/2, m.loc.y-m.radius-p.loc.y+height/2, m.radius*2, m.radius*2);
-      m.move();
-      for (Mote m2 : Motes) {
-        while (m.shouldAbsorb(m2)) {
-          m.absorb(m2);
+    for (int i = 0; i < Motes.size(); i++) {
+      Mote m = Motes.get(i);
+      if (m.radius > 1) {
+        image(m.img, m.loc.x-m.radius-p.loc.x+height/2, m.loc.y-m.radius-p.loc.y+height/2, m.radius*2, m.radius*2);
+        m.move();
+        for (Mote m2 : Motes) {
+          while (m.shouldAbsorb(m2)) {
+            m.absorb(m2);
+          }
         }
+
+        if (!(m instanceof Player)) {
+          if (m.radius >= player.radius && m.img != biggerEnemy) m.img = biggerEnemy;
+          else if (m.radius < player.radius && m.img != smallerEnemy)m.img = smallerEnemy;
+        }
+      } else {
+        Motes.remove(m);
+        i--;
       }
-      
-      if (!(m instanceof Player)) {
-        if (m.radius >= player.radius && m.img != biggerEnemy) m.img = biggerEnemy;
-        else if(m.radius < player.radius && m.img != smallerEnemy)m.img = smallerEnemy;
-      }
-      
-    } else {
-      Motes.remove(m);
-      i--;
     }
   }
 }
