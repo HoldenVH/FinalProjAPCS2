@@ -6,8 +6,8 @@ int mapWidth, mapHeight;
 
 void setup() {
   size(1200, 1200);
-  mapWidth=2400;
-  mapHeight=2400;
+  mapWidth=3000;
+  mapHeight=3000;
   biggerEnemy = loadImage("biggerEnemy.png");
   smallerEnemy = loadImage("smallerEnemy.png");
   player = new Player(loadImage("player.png"));
