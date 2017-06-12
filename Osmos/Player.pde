@@ -1,6 +1,6 @@
 class Player extends Mote {
   Player(PImage img) {
-    super(mapWidth/2-100, mapHeight/2, 0, 0, 200, img);
+    super(mapWidth/2-100, mapHeight/2, 0, 0, 100, img);
   }
 
   public boolean move() {

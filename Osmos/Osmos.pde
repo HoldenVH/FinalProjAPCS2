@@ -3,6 +3,7 @@ Player player;
 PImage biggerEnemy;
 PImage smallerEnemy;
 int mapWidth, mapHeight;
+float radTemp;
 
 void setup() {
   size(1200, 1200);
@@ -37,10 +38,15 @@ void draw() {
     if (m.radius > 1) {
       image(m.img, m.loc.x-m.radius-player.loc.x+height/2, m.loc.y-m.radius-player.loc.y+height/2, m.radius*2, m.radius*2);
       if (m.move()) {
-        float newRadius = (float)Math.sqrt(2*player.radius*0.5 - 0.25);
-        PVector dir = new PVector(mouseX-width/2, mouseY-height/2).normalize().mult(player.radius*1.5);
-        PVector newVel = new PVector(mouseX-width/2, mouseY-height/2).normalize().mult(player.radius*player.radius/(newRadius*newRadius));
-        Motes.add(new Mote(player.loc.x+dir.x, player.loc.y+dir.y, newVel.x, newVel.y, newRadius, smallerEnemy));
+        if (frameCount%10 == 0) {
+          float newRadius = (float)Math.sqrt(2*player.radius*radTemp - radTemp*radTemp);
+          PVector dir = new PVector(mouseX-width/2, mouseY-height/2).normalize().mult(player.radius*1.5);
+          PVector newVel = new PVector(mouseX-width/2, mouseY-height/2).normalize().mult(player.radius*player.radius/(newRadius*newRadius));
+          Motes.add(new Mote(player.loc.x+dir.x, player.loc.y+dir.y, newVel.x, newVel.y, newRadius, smallerEnemy));
+          radTemp = 0.5;
+        } else {
+          radTemp += 0.5;
+        }
       }
       for (Mote m2 : Motes) {
         while (m.shouldAbsorb(m2)) {
