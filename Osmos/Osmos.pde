@@ -1,16 +1,18 @@
 ArrayList<Mote> Motes = new ArrayList<Mote>();
 Player player;
 PImage biggerEnemy, smallerEnemy, gameOver;
+float radTemp;
 
 boolean started;
 int resetCounter, mapBoxClicked, mapSize, enemiesBoxClicked, numEnemies;
 //menu vars
 
+
 void setup() {
   frameRate(20);
-  size(1000, 1000);
+  size(1500, 1500);
   biggerEnemy = loadImage("biggerEnemy.png");
-  smallerEnemy = loadImage("smallerEnemy.png");
+  smallerEnemy = loadImage("smallerEnemy.png"); 
   gameOver= loadImage("gameOver.png");
   mapBoxClicked=1;
   mapSize=3000;
@@ -19,7 +21,7 @@ void setup() {
 }
 
 void draw() {
-  System.out.println(numEnemies+", "+mapSize);
+  System.out.println(Motes.size());
   clear();
   if (!started) {//menu screen
     textSize(50);
@@ -38,14 +40,14 @@ void draw() {
       rect(width/2-350+250*box, height/2, 200, 100);
     }
     fill(255);
-    text("Small",width/2-250,height/2+50);
-    text("Medium",width/2,height/2+50);
-    text("Large",width/2+250,height/2+50);
+    text("Small", width/2-250, height/2+50);
+    text("Medium", width/2, height/2+50);
+    text("Large", width/2+250, height/2+50);
     text("Select your map size", width/2, height/2-50);
-//map size menu creation
+    //map size menu creation
 
 
-for (int box=0; box<3; box++) {
+    for (int box=0; box<3; box++) {
       fill(150);
       if (mouseOver(width/2-350+250*box, height/2-200, 200, 100)|| enemiesBoxClicked==box) {
         fill(100);
@@ -57,11 +59,11 @@ for (int box=0; box<3; box++) {
       rect(width/2-350+250*box, height/2-200, 200, 100);
     }
     fill(255);
-    text("Few",width/2-250,height/2-150);
-    text("Normal",width/2,height/2-150);
-    text("Many",width/2+250,height/2-150);
+    text("Few", width/2-250, height/2-150);
+    text("Normal", width/2, height/2-150);
+    text("Many", width/2+250, height/2-150);
     text("How many enemies do you want?", width/2, height/2-250);
-//enemy num selection menu
+    //enemy num selection menu
 
     //start button
     fill(150);
@@ -98,29 +100,27 @@ for (int box=0; box<3; box++) {
       if (resetCounter>30) {
         started=false;
         Motes=new ArrayList<Mote>();
+        //=======
+        background(100);
+        fill(0, 255);
+        rect(width/2-player.loc.x, height/2-player.loc.y, mapSize, mapSize);
       }
     } else {
-      background(100);
-      fill(0, 255);
-      rect(width/2-player.loc.x, height/2-player.loc.y, mapSize, mapSize);
-      /*
-    for (Mote m: Motes) {
-       if (m.radius > 1) {
-       image(m.img, m.loc.x-m.radius, m.loc.y-m.radius, m.radius*2, m.radius*2);
-       m.move();
-       for (Mote m2 : Motes) {
-       m.transfer(m2);
-       }
-       }
-       }
-       */
-        
-      player.move();
       for (int i = 0; i < Motes.size(); i++) {
         Mote m = Motes.get(i);
         if (m.radius > 1) {
           image(m.img, m.loc.x-m.radius-player.loc.x+height/2, m.loc.y-m.radius-player.loc.y+height/2, m.radius*2, m.radius*2);
-          
+          if (m.move()) {
+            if (frameCount%10 == 0) {
+              float newRadius = (float)Math.sqrt(2*player.radius*radTemp - radTemp*radTemp);
+              PVector dir = new PVector(mouseX-width/2, mouseY-height/2).normalize().mult(player.radius*1.5);
+              PVector newVel = new PVector(mouseX-width/2, mouseY-height/2).normalize().mult(player.radius*player.radius/(newRadius*newRadius));
+              Motes.add(new Mote(player.loc.x+dir.x, player.loc.y+dir.y, newVel.x, newVel.y, newRadius, smallerEnemy));
+              radTemp = 0.1;
+            } else {
+              radTemp += player.vel.mag()*.1;
+            }
+          }
           for (Mote m2 : Motes) {
             while (m.shouldAbsorb(m2)) {
               m.absorb(m2);

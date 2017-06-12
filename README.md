@@ -14,9 +14,13 @@ Features:
 
 - Sprites from the actual game which update based on gameplay
 
+-Cell propulsion system that follows the rules of physics
+
 Bugs:
 
-- None right now (we think)
+- Sometimes very small cells cause bigger cells to shrink when they collide
+
+- If you speed up a lot while small, your size fluctuates getting bigger and smaller, probably caused by absorbing your own expulsion
 
 Development Log:
 
@@ -67,3 +71,5 @@ Development Log:
 - Added sprites for bigger/smaller enemies and made them update based on size, optimized most of the code especially the drawing, updated prototype and readme features
 
 6/11:
+
+- Added bigger map, made player stay centered, added cell propulsion system, tweaked movement and display to make everything smooth

@@ -13,12 +13,12 @@ class Mote {
   }
 
 
-//unused except for bounds
-  public void move() {
+  public boolean move() {
+
     if (vel.mag()!=0) {
       loc.add(vel);
       if (vel.mag()>.05) {
-        vel.mult(.99); //coefficient of "friction"
+        vel.mult(.999);//coefficient of "friction"
       } else {
         vel.mult(0);
       }
@@ -46,6 +46,8 @@ class Mote {
     if (loc.y+radius > mapSize) {
       loc.y = mapSize-radius;
     }
+    
+    return false;
   }
 
 
@@ -55,7 +57,7 @@ class Mote {
   }
 
   public boolean shouldAbsorb(Mote m) {
-    return m.radius < this.radius && this.loc.dist(m.loc)<this.radius+m.radius;
+    return m.radius < this.radius && this.loc.dist(m.loc) < this.radius+m.radius;
   }
 
   public void absorb(Mote m) {

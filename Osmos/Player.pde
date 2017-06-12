@@ -3,18 +3,22 @@ class Player extends Mote {
     super(mapSize/2-100, mapSize/2, 0, 0, 100, img);
   }
 
-  public void move() {
+
+  public boolean move() {
+    boolean moved = false;
     if (mousePressed) {
       PVector change = new PVector(mouseX-width/2, mouseY-height/2);
       change.normalize();
       change.mult(-.3);
       vel.add(change);
-      radius -= 0.5;
+      //radius -= 0.5;
+      radius -= vel.mag()*.1;
+      moved = true;
     }
     if (vel.mag()!=0) {
       loc.add(vel);
       if (vel.mag()>.05) {
-        vel.mult(.99);//coefficient of "friction"
+        vel.mult(.999);//coefficient of "friction"
       } else {
         vel.mult(0);
       }
@@ -40,5 +44,7 @@ class Player extends Mote {
     if (loc.y+radius > mapSize) {
       loc.y = mapSize-radius;
     }
+    
+    return moved;
   }
 }
