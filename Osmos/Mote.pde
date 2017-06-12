@@ -12,6 +12,8 @@ class Mote {
     radChange=false;
   }
 
+
+//unused except for bounds
   public void move() {
     if (vel.mag()!=0) {
       loc.add(vel);
@@ -22,13 +24,14 @@ class Mote {
       }
 
       //bound checking and bouncing, we need to decide window size
-      if (loc.x-radius < 0 || loc.x+radius > mapWidth) {
+      if (loc.x-radius < 0 || loc.x+radius > mapSize) {
         vel.set(-1*vel.x, vel.y);
       }
-      if (loc.y-radius < 0|| loc.y+radius > mapWidth) {
+      if (loc.y-radius < 0|| loc.y+radius > mapSize) {
         vel.set(vel.x, -1*vel.y);
       }
     }
+    
 
     //prevent motes from going out of bounds
     if (loc.x-radius < 0) {
@@ -37,13 +40,14 @@ class Mote {
     if (loc.y-radius < 0) {
       loc.y = radius;
     }
-    if (loc.x+radius > mapWidth) {
-      loc.x = mapWidth-radius;
+    if (loc.x+radius > mapSize) {
+      loc.x = mapSize-radius;
     }
-    if (loc.y+radius > mapHeight) {
-      loc.y = mapHeight-radius;
+    if (loc.y+radius > mapSize) {
+      loc.y = mapSize-radius;
     }
   }
+
 
   //true if a<=b<=c
   public boolean between(float a, float b, float c) {

@@ -1,43 +1,67 @@
 ArrayList<Mote> Motes = new ArrayList<Mote>();
 Player player;
 PImage biggerEnemy, smallerEnemy, gameOver;
-int mapWidth, mapHeight;
+
 boolean started;
-int resetCounter;
+int resetCounter, mapBoxClicked, mapSize, enemiesBoxClicked, numEnemies;
+//menu vars
 
 void setup() {
+  frameRate(20);
   size(1200, 1200);
   biggerEnemy = loadImage("biggerEnemy.png");
   smallerEnemy = loadImage("smallerEnemy.png");
   gameOver= loadImage("gameOver.png");
+  mapBoxClicked=1;
+  mapSize=3000;
+  enemiesBoxClicked=1;
+  numEnemies=80;
 }
 
 void draw() {
+  System.out.println(frameRate);
   clear();
   if (!started) {//menu screen
+    textSize(50);
+    textAlign(CENTER, CENTER);
+    //text settings
+
+    for (int box=0; box<3; box++) {
+      fill(150);
+      if (mouseOver(width/2-350+250*box, height/2-200, 200, 100)|| mapBoxClicked==box) {
+        fill(100);
+        if (mousePressed) {
+          mapBoxClicked=box;
+          mapSize=1500*(box+1);
+        }
+      }
+      rect(width/2-350+250*box, height/2-200, 200, 100);
+    }
+    fill(255);
+    text("Small",width/2-250,height/2-150);
+    text("Medium",width/2,height/2-150);
+    text("Large",width/2+250,height/2-150);
+
+    //start button
     fill(150);
     if (mouseOver(width/2-100, height/2-50, 200, 100)) fill(100);
     rect(width/2-100, height/2-50, 200, 100);
     fill(255);
-    textSize(50);
-    textAlign(CENTER,CENTER);
-    text("START",width/2,height/2);
-    
+    text("START", width/2, height/2);
+
     if (mouseOver(width/2-100, height/2-50, 200, 100) && mousePressed) {
       //start game
       started=true;
-      //set map size
-      mapWidth=3000;
-      mapHeight=3000;
       //make player
       player = new Player(loadImage("player.png"));
       Motes.add(player);
-      
+
       for (int i = 1; i < 60; i++) {
         //add random motes
-        Motes.add(new Mote((float)Math.random()*mapWidth, (float)Math.random()*mapHeight, 0, 0, (float)Math.random()*25+40, biggerEnemy));
+        Motes.add(new Mote((float)Math.random()*mapSize, (float)Math.random()*mapSize, 0, 0, (float)Math.random()*25+40, biggerEnemy));
         //delete motes touching other motes
         for (int n = 0; n < i; n++) {
+          Motes.get(n+1).move();
           if (Motes.get(n).shouldAbsorb(Motes.get(i)) || Motes.get(i).shouldAbsorb(Motes.get(n))) {
             Motes.remove(i);
             i--;
@@ -50,14 +74,14 @@ void draw() {
     if (!(Motes.get(0) instanceof Player)) {
       image(gameOver, 0, 0, width, height);
       resetCounter++;
-      if(resetCounter>30){
+      if (resetCounter>30) {
         started=false;
         Motes=new ArrayList<Mote>();
       }
     } else {
       background(100);
       fill(0, 255);
-      rect(width/2-player.loc.x, height/2-player.loc.y, mapWidth, mapHeight);
+      rect(width/2-player.loc.x, height/2-player.loc.y, mapSize, mapSize);
       /*
     for (Mote m: Motes) {
        if (m.radius > 1) {
@@ -69,12 +93,13 @@ void draw() {
        }
        }
        */
-
+        
+      player.move();
       for (int i = 0; i < Motes.size(); i++) {
         Mote m = Motes.get(i);
         if (m.radius > 1) {
           image(m.img, m.loc.x-m.radius-player.loc.x+height/2, m.loc.y-m.radius-player.loc.y+height/2, m.radius*2, m.radius*2);
-          m.move();
+          
           for (Mote m2 : Motes) {
             while (m.shouldAbsorb(m2)) {
               m.absorb(m2);
