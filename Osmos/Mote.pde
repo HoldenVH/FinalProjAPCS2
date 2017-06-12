@@ -12,7 +12,7 @@ class Mote {
     radChange=false;
   }
 
-  public void move() {
+  public boolean move() {
     if (vel.mag()!=0) {
       loc.add(vel);
       if (vel.mag()>.05) {
@@ -43,6 +43,8 @@ class Mote {
     if (loc.y+radius > mapHeight) {
       loc.y = mapHeight-radius;
     }
+    
+    return false;
   }
 
   //true if a<=b<=c
@@ -51,7 +53,7 @@ class Mote {
   }
 
   public boolean shouldAbsorb(Mote m) {
-    return m.radius < this.radius && this.loc.dist(m.loc)<this.radius+m.radius;
+    return m.radius < this.radius && this.loc.dist(m.loc) < this.radius+m.radius;
   }
 
   public void absorb(Mote m) {

@@ -1,15 +1,17 @@
 class Player extends Mote {
   Player(PImage img) {
-    super(mapWidth/2-100, mapHeight/2, 0, 0, 100, img);
+    super(mapWidth/2-100, mapHeight/2, 0, 0, 200, img);
   }
 
-  public void move() {
+  public boolean move() {
+    boolean moved = false;
     if (mousePressed && radius > 10) {
       PVector change = new PVector(mouseX-width/2, mouseY-height/2);
       change.normalize();
       change.mult(-.1);
       vel.add(change);
       radius -= 0.5;
+      moved = true;
     }
     if (vel.mag()!=0) {
       loc.add(vel);
@@ -40,5 +42,7 @@ class Player extends Mote {
     if (loc.y+radius > mapHeight) {
       loc.y = mapHeight-radius;
     }
+    
+    return moved;
   }
 }

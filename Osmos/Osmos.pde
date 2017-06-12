@@ -13,7 +13,7 @@ void setup() {
   player = new Player(loadImage("player.png"));
   Motes.add(player);
 
-  for (int i = 1; i < 60; i++) {
+  for (int i = 1; i < 20; i++) {
     //add random motes
     Motes.add(new Mote((float)Math.random()*mapWidth, (float)Math.random()*mapHeight, 0, 0, (float)Math.random()*25+40, biggerEnemy));
     //delete motes touching other motes
@@ -29,37 +29,29 @@ void setup() {
 void draw() {
   clear();
   background(100);
-  Mote p= Motes.get(0);
-  fill(0,255);
-  rect(width/2-p.loc.x,height/2-p.loc.y,mapWidth,mapHeight);
-  /*
-  for (Mote m: Motes) {
-   if (m.radius > 1) {
-   image(m.img, m.loc.x-m.radius, m.loc.y-m.radius, m.radius*2, m.radius*2);
-   m.move();
-   for (Mote m2 : Motes) {
-   m.transfer(m2);
-   }
-   }
-   }
-   */
+  fill(0, 255);
+  rect(width/2-player.loc.x, height/2-player.loc.y, mapWidth, mapHeight);
 
   for (int i = 0; i < Motes.size(); i++) {
     Mote m = Motes.get(i);
     if (m.radius > 1) {
-      image(m.img, m.loc.x-m.radius-p.loc.x+height/2, m.loc.y-m.radius-p.loc.y+height/2, m.radius*2, m.radius*2);
-      m.move();
+      image(m.img, m.loc.x-m.radius-player.loc.x+height/2, m.loc.y-m.radius-player.loc.y+height/2, m.radius*2, m.radius*2);
+      if (m.move()) {
+        float newRadius = (float)Math.sqrt(2*player.radius*0.5 - 0.25);
+        PVector dir = new PVector(mouseX-width/2, mouseY-height/2).normalize().mult(player.radius*1.5);
+        PVector newVel = new PVector(mouseX-width/2, mouseY-height/2).normalize().mult(player.radius*player.radius/(newRadius*newRadius));
+        Motes.add(new Mote(player.loc.x+dir.x, player.loc.y+dir.y, newVel.x, newVel.y, newRadius, smallerEnemy));
+      }
       for (Mote m2 : Motes) {
         while (m.shouldAbsorb(m2)) {
           m.absorb(m2);
         }
       }
-      
+
       if (!(m instanceof Player)) {
         if (m.radius >= player.radius && m.img != biggerEnemy) m.img = biggerEnemy;
-        else if(m.radius < player.radius && m.img != smallerEnemy)m.img = smallerEnemy;
+        else if (m.radius < player.radius && m.img != smallerEnemy)m.img = smallerEnemy;
       }
-      
     } else {
       Motes.remove(m);
       i--;
